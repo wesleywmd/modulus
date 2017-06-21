@@ -4,13 +4,10 @@
  * @author Wesley Guthrie <therealwesleywmd@gmail.com>
  */
 
-use Symfony\Component\Console\Application;
-use Modulus\Modulus;
+use Modulus\Application;
 
 require __DIR__.'/../../../autoload.php';
 
 $application = new Application();
-
-$modulus = new Modulus();
 
 $application->run();
