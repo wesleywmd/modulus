@@ -1,8 +1,8 @@
 {
   "name": "wesleywmd/modulus",
   "autoload": {
-    "psr-0" : {
-      "Modulus" : "src"
+    "psr-4" : {
+      "Modulus\\" : "src/"
     }
   },
   "require": {
