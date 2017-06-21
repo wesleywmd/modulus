@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+/**
+ * @author Wesley Guthrie <therealwesleywmd@gmail.com>
+ */
+
+use Symfony\Component\Console\Application;
+
+require __DIR__.'/../../../autoload.php';
+
+$application = new Application();
+
+echo "APP CREATED";
+
+$application->run();
