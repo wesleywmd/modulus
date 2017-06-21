@@ -10,6 +10,6 @@ require __DIR__.'/../../../autoload.php';
 
 $application = new Application();
 
-echo "APP CREATED";
+$modulus = new Modulus();
 
 $application->run();
