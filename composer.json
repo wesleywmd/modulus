@@ -4,5 +4,8 @@
     "psr-0" : {
       "Modulus" : "src"
     }
+  },
+  "require": {
+    "symfony/console": "^3.3"
   }
 }
