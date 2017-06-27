@@ -7,6 +7,7 @@
   },
   "require": {
     "symfony/console": "^3.3",
-    "symfony/dependency-injection": "^3.3"
+    "symfony/dependency-injection": "^3.3",
+    "symfony/config": "^3.3"
   }
 }
