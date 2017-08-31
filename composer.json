@@ -1,10 +1,23 @@
 {
   "name": "wesleywmd/modulus",
+  "description": "Symfony Console Application Framework",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Wesley Guthrie",
+      "email": "therealwesleywmd@gmail.com"
+    }
+  ],
   "autoload": {
-    "psr-4" : {
-      "Modulus\\" : "src/"
+    "psr-4": {
+      "Modulus\\": "src/"
     }
   },
+  "bin": [
+    "bin/modulus"
+  ],
   "require": {
     "symfony/console": "^3.3",
     "symfony/dependency-injection": "^3.3",
