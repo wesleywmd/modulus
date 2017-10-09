@@ -51,10 +51,11 @@ class Io extends \Symfony\Component\Console\Style\SymfonyStyle
     /**
      * {@inheritdoc}
      */
-    public function ask($question, $default = null, $validator = null)
+    public function ask($question, $default = null, $validator = null, $maxAttempts = null)
     {
         $question = new Question("<question>".$question."</question>", $default);
         $question->setValidator($validator);
+        $question->setMaxAttempts($maxAttempts);
 
         return $this->askQuestion($question);
     }
