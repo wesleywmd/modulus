@@ -239,7 +239,7 @@ class Io extends OutputStyle implements StyleInterface
             }
         } catch( RuntimeException $e ) {
             $this->error("Validation Error: ".$e->getMessage());
-            $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
+            $this->askForMissingArgument($argument, $question, $default, $validator, $maxAttempts, $comment, $commentFormat);
         }
     }
 
@@ -268,7 +268,7 @@ class Io extends OutputStyle implements StyleInterface
             }
         } catch( RuntimeException $e ) {
             $this->error("Validation Error: ".$e->getMessage());
-            $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
+            $this->askForMissingOption($option, $question, $default, $validator, $maxAttempts, $comment, $commentFormat);
         }
     }
 
