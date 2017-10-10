@@ -230,7 +230,15 @@ class Io extends OutputStyle implements StyleInterface
         if( is_null($this->input->getArgument($argument)) ) {
             $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
         } elseif( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) ) {
-            $this->comment(sprintf($commentFormat, $argument, $this->input->getArgument($argument)) );
+            try {
+                if( is_callable($validator) ) {
+                    $this->comment( sprintf($commentFormat, $argument, $validator($this->input->getArgument($argument))) );
+                } else {
+                    $this->comment( sprintf($commentFormat, $argument, $this->input->getArgument($argument)) );
+                }
+            } catch( RuntimeException $e ) {
+                $this->error("Validation Error: ".$e->getMessage());
+            }
         }
     }
 
@@ -250,7 +258,15 @@ class Io extends OutputStyle implements StyleInterface
         if( is_null($this->input->getOption($option)) ) {
             $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
         } elseif( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) ) {
-            $this->comment(sprintf($commentFormat, $option, $this->input->getOption($option)) );
+            try {
+                if( is_callable($validator) ) {
+                    $this->comment( sprintf($commentFormat, $option, $validator($this->input->getOption($option))) );
+                } else {
+                    $this->comment( sprintf($commentFormat, $option, $this->input->getOption($option)) );
+                }
+            } catch( RuntimeException $e ) {
+                $this->error("Validation Error: ".$e->getMessage());
+            }
         }
     }
 
