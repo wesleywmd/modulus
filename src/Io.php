@@ -65,8 +65,8 @@ class Io extends OutputStyle implements StyleInterface
     {
         $this->autoPrependBlock();
         $this->writeln(array(
-            sprintf('<fg=cyan;options=bold>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
-            sprintf('<fg=cyan;options=bold>%s</>', str_repeat('=', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
+            sprintf('<fg=cyan;options=bold>  %s</>', OutputFormatter::escapeTrailingBackslash($message)),
+            sprintf('<fg=cyan;options=bold>  %s</>', str_repeat('=', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
         ));
         $this->newLine();
     }
@@ -80,8 +80,8 @@ class Io extends OutputStyle implements StyleInterface
     {
         $this->autoPrependBlock();
         $this->writeln(array(
-            sprintf('<fg=magenta>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
-            sprintf('<fg=magenta>%s</>', str_repeat('-', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
+            sprintf('<fg=magenta>  %s</>', OutputFormatter::escapeTrailingBackslash($message)),
+            sprintf('<fg=magenta>  %s</>', str_repeat('-', Helper::strlenWithoutDecoration($this->getFormatter(), $message))),
         ));
         $this->newLine();
     }
