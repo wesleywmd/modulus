@@ -215,6 +215,46 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
+     * Ask for an missing argument.
+     *
+     * @param string        $argument
+     * @param string        $question
+     * @param string|null   $default
+     * @param callable|null $validator
+     * @param int|null      $maxAttempts
+     * @param bool          $comment
+     * @param string        $commentFormat
+     */
+    public function askForMissingArgument($argument, $question, $default = null, $validator = null, $maxAttempts = null, $comment = false, $commentFormat = "Argument [%s] set to: %s")
+    {
+        if( is_null($this->input->getArgument($argument)) ) {
+            $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
+        } elseif( (bool) $comment ) {
+            $this->comment(sprintf($commentFormat, $argument, $this->input->getArgument($argument)) );
+        }
+    }
+
+    /**
+     * Ask for an missing option.
+     *
+     * @param string        $option
+     * @param string        $question
+     * @param string|null   $default
+     * @param callable|null $validator
+     * @param int|null      $maxAttempts
+     * @param bool          $comment
+     * @param string        $commentFormat
+     */
+    public function askForMissingOption($option, $question, $default = null, $validator = null, $maxAttempts = null, $comment = false, $commentFormat = "Option [%s] set to: %s")
+    {
+        if( is_null($this->input->getArgument($option)) ) {
+            $this->input->setArgument($option, $this->ask($question, $default, $validator, $maxAttempts) );
+        } elseif( (bool) $comment ) {
+            $this->comment(sprintf($commentFormat, $option, $this->input->getArgument($option)) );
+        }
+    }
+
+    /**
      * Asks a question.
      *
      * @param string        $question
