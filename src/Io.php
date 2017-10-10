@@ -247,10 +247,10 @@ class Io extends OutputStyle implements StyleInterface
      */
     public function askForMissingOption($option, $question, $default = null, $validator = null, $maxAttempts = null, $comment = null, $commentFormat = "Option [%s] set to: %s")
     {
-        if( is_null($this->input->getArgument($option)) ) {
-            $this->input->setArgument($option, $this->ask($question, $default, $validator, $maxAttempts) );
+        if( is_null($this->input->getOption($option)) ) {
+            $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
         } elseif( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) ) {
-            $this->comment(sprintf($commentFormat, $option, $this->input->getArgument($option)) );
+            $this->comment(sprintf($commentFormat, $option, $this->input->getOption($option)) );
         }
     }
 
