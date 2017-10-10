@@ -227,10 +227,10 @@ class Io extends OutputStyle implements StyleInterface
      */
     public function askForMissingArgument($argument, $question, $default = null, $validator = null, $maxAttempts = null, $comment = null, $commentFormat = "Argument [%s] set to: %s")
     {
-        if( is_null($this->input->getArgument($argument)) ) {
-            $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
-        }
         try {
+            if( is_null($this->input->getArgument($argument)) ) {
+                $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
+            }
             $argumentValue = $this->input->getArgument($argument);
             $validated = ( is_callable($validator) ? $validator($argumentValue) : $argumentValue );
             if( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) )
@@ -256,10 +256,10 @@ class Io extends OutputStyle implements StyleInterface
      */
     public function askForMissingOption($option, $question, $default = null, $validator = null, $maxAttempts = null, $comment = null, $commentFormat = "Option [%s] set to: %s")
     {
-        if( is_null($this->input->getOption($option)) ) {
-            $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
-        }
         try {
+            if( is_null($this->input->getOption($option)) ) {
+                $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
+            }
             $optionValue = $this->input->getOption($option);
             $validated = ( is_callable($validator) ? $validator($optionValue) : $optionValue );
             if( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) )
