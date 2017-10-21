@@ -225,21 +225,21 @@ class Io extends OutputStyle implements StyleInterface
      * @param bool          $comment
      * @param string        $commentFormat
      */
-    public function askForMissingArgument($argument, $question, $default = null, $validator = null, $maxAttempts = null, $comment = null, $commentFormat = "Argument [%s] set to: %s")
+    public function askForMissingArgument(
+        $argument,
+        $question,
+        $default = null,
+        $validator = null,
+        $maxAttempts = null,
+        $comment = false,
+        $commentFormat = "Argument [%s] set to: %s"
+    )
     {
-        try {
-            if( is_null($this->input->getArgument($argument)) ) {
-                $this->input->setArgument($argument, $this->ask($question, $default, $validator, $maxAttempts) );
-            }
-            $argumentValue = $this->input->getArgument($argument);
-            $validated = ( is_callable($validator) ? $validator($argumentValue) : $argumentValue );
-            if( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) )
-            {
-                $this->comment( sprintf($commentFormat, $argument, $validated) );
-            }
-        } catch( RuntimeException $e ) {
-            $this->error("Validation Error: ".$e->getMessage());
-            $this->askForMissingArgument($argument, $question, $default, $validator, $maxAttempts, $comment, $commentFormat);
+        $argumentValue = $this->input->getArgument($argument);
+        $answer = $this->askForMissingValue($argumentValue, $question, $default, $validator, $maxAttempts);
+        $this->input->setArgument($argument, $answer);
+        if( $comment ) {
+            $this->comment(sprintf($commentFormat, $argument, $answer));
         }
     }
 
@@ -254,21 +254,36 @@ class Io extends OutputStyle implements StyleInterface
      * @param bool          $comment
      * @param string        $commentFormat
      */
-    public function askForMissingOption($option, $question, $default = null, $validator = null, $maxAttempts = null, $comment = null, $commentFormat = "Option [%s] set to: %s")
+    public function askForMissingOption(
+        $option,
+        $question,
+        $default = null,
+        $validator = null,
+        $maxAttempts = null,
+        $comment = false,
+        $commentFormat = "Option [%s] set to: %s"
+    ) {
+        $optionValue = $this->input->getOption($option);
+        $answer = $this->askForMissingValue($optionValue, $question, $default, $validator, $maxAttempts);
+        if( $comment ) {
+            $this->comment(sprintf($commentFormat, $option, $answer));
+        }
+    }
+
+    private function askForMissingValue($value, $question, $default, $validator, $maxAttempts)
     {
-        try {
-            if( is_null($this->input->getOption($option)) ) {
-                $this->input->setOption($option, $this->ask($question, $default, $validator, $maxAttempts) );
+        if( is_null($value) ) {
+            return $this->ask($question, $default, $validator, $maxAttempts);
+        } else {
+            if( is_callable($validator) ) {
+                try {
+                    return $validator($argumentValue);
+                } catch( RuntimeException $e ) {
+                    return $this->ask($question, $default, $validator, $maxAttempts);
+                }
+            } else {
+                throw \Exception("Validator must be a callable or null");
             }
-            $optionValue = $this->input->getOption($option);
-            $validated = ( is_callable($validator) ? $validator($optionValue) : $optionValue );
-            if( (bool) ( is_null($comment) ? $this->isDebug() : $comment ) )
-            {
-                $this->comment( sprintf($commentFormat, $option, $validated) );
-            }
-        } catch( RuntimeException $e ) {
-            $this->error("Validation Error: ".$e->getMessage());
-            $this->askForMissingOption($option, $question, $default, $validator, $maxAttempts, $comment, $commentFormat);
         }
     }
 
