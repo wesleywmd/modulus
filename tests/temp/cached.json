@@ -1,0 +1,29 @@
+{
+  "vm": {
+    "wei": {
+      "path": "C:\\Users\\weswe\\.robofirm\\box\\hankypanky",
+      "type": "remote",
+      "description": "World Emblem VM"
+    },
+    "yakima": {
+      "path": "C:\\Users\\weswe\\.robofirm\\box\\yakima",
+      "type": "remote",
+      "description": "Yakima VM"
+    },
+    "hanky": {
+      "path": "C:\\Users\\weswe\\.robofirm\\box\\hankypanky",
+      "type": "remote",
+      "description": "HankyPanky VM"
+    },
+    "ftf": {
+      "path": "C:\\Users\\weswe\\.robofirm\\box\\fashiontofigure/",
+      "type": "remote",
+      "description": "FashionToFigure VM"
+    },
+    "hankypanky": {
+      "path": "C:\\Users\\weswe/.summon/box/hankypanky",
+      "type": "installed",
+      "description": "Test"
+    }
+  }
+}
