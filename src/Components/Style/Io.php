@@ -1,5 +1,5 @@
 <?php
-namespace Modulus;
+namespace Modulus\Components\Style;
 
 use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Formatter\OutputFormatter;
@@ -13,10 +13,15 @@ use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\OutputStyle;
-use Symfony\Component\Console\Style\StyleInterface;
 use Symfony\Component\Console\Terminal;
 
-class Io extends OutputStyle implements StyleInterface
+/**
+ * Class Io
+ * @package Modulus\Components\Style
+ * @author Wesley Guthrie
+ * @email therealwesleywmd@gmail.com
+ */
+class Io extends OutputStyle implements IoInterface
 {
     const MAX_LINE_LENGTH = 120;
 
@@ -38,14 +43,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a message as a block of text.
-     *
-     * @param string|array $messages The message to write in the block
-     * @param string|null  $type     The block type (added in [] on first line)
-     * @param string|null  $style    The style to apply to the whole block
-     * @param string       $prefix   The prefix for the block
-     * @param bool         $padding  Whether to add vertical padding
-     * @param bool         $escape   Whether to escape the message
+     * {@inheritdoc}
      */
     public function block($messages, $type = null, $style = null, $prefix = ' ', $padding = false, $escape = true)
     {
@@ -57,9 +55,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a command title.
-     *
-     * @param string $message
+     * {@inheritdoc}
      */
     public function title($message)
     {
@@ -72,9 +68,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a section title.
-     *
-     * @param string $message
+     * {@inheritdoc}
      */
     public function section($message)
     {
@@ -87,9 +81,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a list.
-     *
-     * @param array $elements
+     * {@inheritdoc}
      */
     public function listing(array $elements)
     {
@@ -103,9 +95,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats informational text.
-     *
-     * @param string|array $message
+     * {@inheritdoc}
      */
     public function text($message)
     {
@@ -118,10 +108,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a command comment.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function comment($message,$padding=false)
     {
@@ -129,9 +116,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a success result bar.
-     *
-     * @param string|array $message
+     * {@inheritdoc}
      */
     public function success($message,$padding=true)
     {
@@ -139,10 +124,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats an error result bar.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function error($message,$padding=true)
     {
@@ -150,10 +132,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats an warning result bar.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function warning($message,$padding=true)
     {
@@ -161,10 +140,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a note admonition.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function note($message,$padding=false)
     {
@@ -173,10 +149,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a caution admonition.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function caution($message,$padding=true)
     {
@@ -184,10 +157,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a info admonition.
-     *
-     * @param string|array $message
-     * @param bool         $padding
+     * {@inheritdoc}
      */
     public function info($message,$padding=false)
     {
@@ -195,10 +165,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Formats a table.
-     *
-     * @param array $headers
-     * @param array $rows
+     * {@inheritdoc}
      */
     public function table(array $headers, array $rows)
     {
@@ -215,15 +182,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Ask for an missing argument.
-     *
-     * @param string        $argument
-     * @param string        $question
-     * @param string|null   $default
-     * @param callable|null $validator
-     * @param int|null      $maxAttempts
-     * @param bool          $comment
-     * @param string        $commentFormat
+     * {@inheritdoc}
      */
     public function askForMissingArgument(
         $argument,
@@ -244,15 +203,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Ask for an missing option.
-     *
-     * @param string        $option
-     * @param string        $question
-     * @param string|null   $default
-     * @param callable|null $validator
-     * @param int|null      $maxAttempts
-     * @param bool          $comment
-     * @param string        $commentFormat
+     * {@inheritdoc}
      */
     public function askForMissingOption(
         $option,
@@ -265,37 +216,14 @@ class Io extends OutputStyle implements StyleInterface
     ) {
         $optionValue = $this->input->getOption($option);
         $answer = $this->askForMissingValue($optionValue, $question, $default, $validator, $maxAttempts);
+        $this->input->setOption($option, $answer);
         if( $comment ) {
             $this->comment(sprintf($commentFormat, $option, $answer));
         }
     }
 
-    private function askForMissingValue($value, $question, $default, $validator, $maxAttempts)
-    {
-        if( is_null($value) ) {
-            return $this->ask($question, $default, $validator, $maxAttempts);
-        } else {
-            if( is_callable($validator) ) {
-                try {
-                    return $validator($argumentValue);
-                } catch( RuntimeException $e ) {
-                    return $this->ask($question, $default, $validator, $maxAttempts);
-                }
-            } else {
-                throw \Exception("Validator must be a callable or null");
-            }
-        }
-    }
-
     /**
-     * Asks a question.
-     *
-     * @param string        $question
-     * @param string|null   $default
-     * @param callable|null $validator
-     * @param int|null      $maxAttempts
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function ask($question, $default = null, $validator = null, $maxAttempts = null)
     {
@@ -307,13 +235,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Asks a question with the user input hidden.
-     *
-     * @param string        $question
-     * @param callable|null $validator
-     * @param int|null      $maxAttempts
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function askHidden($question, $validator = null, $maxAttempts = null)
     {
@@ -327,12 +249,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Asks for confirmation.
-     *
-     * @param string $question
-     * @param bool   $default
-     *
-     * @return bool
+     * {@inheritdoc}
      */
     public function confirm($question, $default = true)
     {
@@ -340,13 +257,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Asks a choice question.
-     *
-     * @param string          $question
-     * @param array           $choices
-     * @param string|int|null $default
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function choice($question, array $choices, $default = null)
     {
@@ -359,9 +270,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Add newline(s).
-     *
-     * @param int $count The number of newlines
+     * {@inheritdoc}
      */
     public function newLine($count = 1)
     {
@@ -370,9 +279,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Starts the progress output.
-     *
-     * @param int $max Maximum steps (0 if unknown)
+     * {@inheritdoc}
      */
     public function progressStart($max = 0)
     {
@@ -381,9 +288,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Advances the progress output X steps.
-     *
-     * @param int $step Number of steps to advance
+     * {@inheritdoc}
      */
     public function progressAdvance($step = 1)
     {
@@ -391,7 +296,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * Finishes the progress output.
+     * {@inheritdoc}
      */
     public function progressFinish()
     {
@@ -401,9 +306,7 @@ class Io extends OutputStyle implements StyleInterface
     }
 
     /**
-     * @param Question $question
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function askQuestion(Question $question)
     {
@@ -441,6 +344,33 @@ class Io extends OutputStyle implements StyleInterface
     {
         parent::write($messages, $newline, $type);
         $this->bufferedOutput->write($this->reduceBuffer($messages), $newline, $type);
+    }
+
+    /**
+     * Asks for missing value
+     * @param $value
+     * @param $question
+     * @param $default
+     * @param $validator
+     * @param $maxAttempts
+     *
+     * @return string
+     */
+    private function askForMissingValue($value, $question, $default, $validator, $maxAttempts)
+    {
+        if( is_null($value) ) {
+            return $this->ask($question, $default, $validator, $maxAttempts);
+        } else {
+            if( is_callable($validator) ) {
+                try {
+                    return $validator($value);
+                } catch( RuntimeException $e ) {
+                    return $this->ask($question, $default, $validator, $maxAttempts);
+                }
+            } else {
+                throw \Exception("Validator must be a callable or null");
+            }
+        }
     }
 
     /**
