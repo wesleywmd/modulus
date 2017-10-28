@@ -5,6 +5,10 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigArrayFactoryTest extends TestCase
 {
+
+    /**
+     * @test
+     */
     public function testSimpleCreate()
     {
         $factory = new ConfigArrayFactory();
@@ -12,6 +16,9 @@ class ConfigArrayFactoryTest extends TestCase
         $this->assertInstanceOf(ConfigArray::class,$simple,"Create a simple configArray.");
     }
 
+    /**
+     * @test
+     */
     public function testPreloadedCreate()
     {
         $factory = new ConfigArrayFactory();

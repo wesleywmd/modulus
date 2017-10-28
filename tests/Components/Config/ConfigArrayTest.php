@@ -4,6 +4,9 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigArrayTest extends TestCase
 {
+    /**
+     * @test
+     */
     public function testAddItem()
     {
         $testArray = new ConfigArray();
@@ -16,6 +19,9 @@ class ConfigArrayTest extends TestCase
         $this->assertFalse($testArray->exists("a"), "Test if item [a] doesn't exist after remove.");
     }
 
+    /**
+     * @test
+     */
     public function testNestedAddItem()
     {
         $testArray = new ConfigArray(["a"=>["b"=>10]]);
@@ -28,6 +34,9 @@ class ConfigArrayTest extends TestCase
         $this->assertTrue($testArray->exists("a"), "Test if item [a] does exist.");
     }
 
+    /**
+     * @test
+     */
     public function testGroupItems()
     {
         $testArray = new ConfigArray();
