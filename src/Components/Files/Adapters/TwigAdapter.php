@@ -57,6 +57,8 @@ class TwigAdapter implements FileAdapterInterface
         if( is_null($this->twig) || is_null($this->templateLocation) ) {
             throw new \Exception("Adapter not setup correctly.");
         }
-        return $this->twig->render($this->templateLocation, $configArray->get() );
+        $array = $configArray->get();
+        $array["__configArray"] = $configArray;
+        return $this->twig->render($this->templateLocation, $array );
     }
 }
