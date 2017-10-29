@@ -51,7 +51,6 @@ class FileGenerator
     public function purge($path)
     {
         $this->verifySetup();
-
         if( $this->filesystem->has($path) ) {
             $this->filesystem->delete($path);
             return true;
@@ -70,16 +69,8 @@ class FileGenerator
     public function write($path, ConfigArrayInterface $strategy, $purge = false )
     {
         $this->verifySetup();
-
-        if( $this->filesystem->has($path) && (bool) $purge ) {
-            $this->filesystem->delete($path);
-            $return = true;
-        } else {
-            $return = false;
-        }
-
+        $return = ( (bool) $purge ? $this->purge($path) : false );
         $this->filesystem->write($path,$this->adapter->render($strategy));
-
         return $return;
     }
 

@@ -2,6 +2,9 @@
 namespace Modulus\Components\Files;
 
 use League\Flysystem\FilesystemInterface;
+use Modulus\Components\Files\Adapters\FileAdapterInterface;
+use Modulus\Components\Files\Adapters\TwigAdapter;
+use Modulus\Components\Files\Adapters\YamlAdapter;
 
 /**
  * Class FileGeneratorFactory
@@ -12,8 +15,8 @@ use League\Flysystem\FilesystemInterface;
 class FileGeneratorFactory
 {
     /**
-     * @param \League\Flysystem\FilesystemInterface          $filesystem
-     * @param \Modulus\Components\Files\FileAdapterInterface $fileAdapter
+     * @param \League\Flysystem\FilesystemInterface                   $filesystem
+     * @param \Modulus\Components\Files\Adapters\FileAdapterInterface $fileAdapter
      *
      * @return \Modulus\Components\Files\FileGenerator
      */
