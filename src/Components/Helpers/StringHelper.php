@@ -11,7 +11,7 @@ class StringHelper
     static function getLine($str,$line)
     {
         $str = explode("\n",$str);
-        return ( isset($str[$line-1]) ? $str[$line-1] : null;
+        return ( isset($str[$line-1]) ? $str[$line-1] : null );
     }
 
     static function startsWith($haystack, $needle)
