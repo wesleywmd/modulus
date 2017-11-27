@@ -12,6 +12,7 @@
         <service id="modulus.components.config.cachedconfigfactory" class="Modulus\Components\Config\CachedConfigFactory"/>
         <service id="modulus.components.config.configarrayfactory" class="Modulus\Components\Config\ConfigArrayFactory"/>
         <service id="modulus.components.files.filegeneratorfactory" class="Modulus\Components\Files\FileGeneratorFactory"/>
+        <service id="modulus.components.helpers.stringhelper" class="Modulus\Components\Helpers\StringHelper"/>
         <service id="modulus.components.shell.shellcommandfactory" class="Modulus\Components\Shell\ShellCommandFactory"/>
         <service id="modulus.components.shell.terminal" class="Modulus\Components\Shell\Terminal"/>
         <service id="modulus.components.style.iofactory" class="Modulus\Components\Style\IoFactory"/>
