@@ -52,6 +52,10 @@ class Terminal implements TerminalInterface
 
     public function interactive(ShellCommandInterface $command, $cwd = null)
     {
+        if( ! $this->exists($command) ) {
+            throw new \Exception("command [{$command->getCommand()}] does not exist");
+        }
+
         $return_var = null;
         $stderr_ouput = array();
         $descriptorspec = array(

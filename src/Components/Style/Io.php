@@ -181,6 +181,15 @@ class Io extends OutputStyle implements IoInterface
         $this->newLine();
     }
 
+    public function assocTable(array $header, array $rows)
+    {
+        array_walk($rows, function(&$item, $key) {
+            $item = [$key, $item];
+        });
+
+        $this->table($header, $rows);
+    }
+
     /**
      * {@inheritdoc}
      */
