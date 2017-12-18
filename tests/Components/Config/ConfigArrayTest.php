@@ -53,4 +53,21 @@ class ConfigArrayTest extends TestCase
         $this->assertFalse($testArray->exists("a:b:c"), "Test if item [a:b:c] doesn't exist.");
         $this->assertFalse($testArray->exists("a:b:c:d"), "Test if item [a:b:c:d] doesn't exist.");
     }
+
+    /**
+     * @test
+     */
+    public function testComplexRemove()
+    {
+        $testArray = new ConfigArray();
+        $testArray->set("a:b:c",10);
+        $testArray->set("d:e:f",10);
+        $testArray->remove("a:b");
+        $this->assertEquals(["d"=>["e"=>["f"=>10]],"a"=>[]], $testArray->get(), "Test if item [] equals array.");
+        $this->assertEquals(["e"=>["f"=>10]], $testArray->get("d"), "Test if item [d] equals array.");
+        $this->assertEquals(["f"=>10], $testArray->get("d:e"), "Test if item [d:e] equals array.");
+        $this->assertEquals(10, $testArray->get("d:e:f"), "Test if item [d:e:f] equals array.");
+
+
+    }
 }

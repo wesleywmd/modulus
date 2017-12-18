@@ -65,12 +65,13 @@ class ConfigArray implements ConfigArrayInterface
      */
     public function remove($id)
     {
-        $id = $this->splitId($id);
-        $parentId = $id;
-        $removal = array_pop($parentId);
-        $parent = $this->getRecursive($parentId,$this->contents);
-        unset($parent[$removal]);
-        $this->contents = $this->wrapInParent($parentId, $parent);
+        $parentId = $this->splitId($id);
+        $removalId = array_pop($parentId);
+        $parent =& $this->contents;
+        foreach( $parentId as $key ) {
+            $parent =& $parent[$key];
+        }
+        unset($parent[$removalId]);
     }
 
     /**
