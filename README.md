@@ -1,41 +1,56 @@
 # Modulus Console Framework
-Simplified symfony console micro framework with some goodies baked in.
 
-## Installation 
-Since Modulus is not available in Packagist yet, you must first add the respository to your project's composer file.
+## What is Modulus?
+Console Application Boilerplate Project. Can be used to build custom console application.
 
-    {
-      ...
-       
-      "repositories": [
-        ...
-         
-        {
-          "type": "vcs",
-          "url": "https://github.com/wesleywmd/modulus.git"
-        }
-        
-        ...
-      ]
-      
-      ...
-    }
+## How do I create my own Modulus project?
+It is as simple running:
 
-Then you can include the package in your project. Since Modulus is still in development, there are no tagged versions as of yet. Please require the package at the master branch.
-
-    composer require wesleywmd/modulus:dev-master
-
-## What does Modulus include?
-Modulus will automatically include a number of dependencies to start. 
-
-    "symfony/config": "^3.3"
-    "symfony/console": "^3.3"
-    "symfony/dependency-injection": "^3.3"
+    composer create-project wesleywmd/Modulus myproject
     
-Modulus also includes a number of its own objects as well.
-* [Modulus\Modulus](docs/Modulus.md) : Facilitates the dependency injection container 
-* **_Modulus\Application_** : {Deprecated - This object will be removed in a future release}  
+Where `myproject` is the directory you want to create your Modulus project.
 
+Now that you have your own Modulus project created, check out the [Tutorials Section](docs/tutorials.md).
+
+## How do I use my Modulus project?
+First lets run the application. From the root of your modulus project, run this bash command.
+
+    bin/modulus
+    
+You should see a base console application output message.
+
+Modulus has dependency cache. So periodically during development, you may want to flush this cache. You can run the follow command to do so.
+
+    bin/flushcache
+    
+You can also switch the cache to debug mode. In your `etc/system.yaml` add the follow config.
+
+    is_debug: true
+    
+This will allow modulus to track for changes and update the cache if needed. It is not recommended to run Modulus with debug enabled in production. It is only for development use.
+    
+## How do I include a Modulus module?
+Yes! Modulus is extendable! You can include modules in modulus by composer requiring them into your modulus project. As long as the module is configured correctly, it should automatically be registered in Modulus for you.
+
+More details for creating your own Modulus module can be found [here](docs/create-new-module.md).
+
+You want to include a composer library that is not a modulus module? No problem. you can set up how ever namespaces to autowire into your project. 
+
+Details for this can be found [here](docs/tutorials/autowiring.md).
+
+## Contributing
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+We have not yet implemented versioning on this repository.
+
+## Authors
+- **Wesley Guthrie** - *Initial work* - therealwesleywmd@gmail.com
+
+See also the list of [contributors](https://github.com/wesleywmd/modulus/graphs/contributors) who participated in this project.
+
+## License
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) license.
 
     
 
