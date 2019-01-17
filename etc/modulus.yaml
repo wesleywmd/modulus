@@ -1,0 +1,19 @@
+applications:
+
+  runtime:
+    name: My New Modulus Project
+    version: 0.1.0
+#    commands:
+#      "hello:world":
+#        service: Modulus\Console\BaseService
+#        title: Hello World Command
+#        description: A Simple Starter Command
+#        help: This is a simple command that just says hello and is just to get you started.
+
+autowiring:
+  App\:
+    resource: ../app/
+  Modulus\:
+    resource: ../vendor/wesleywmd/modulus-core/src/
+  Wesleywmd\Element\ConsoleStyle\:
+    resource: ../vendor/wesleywmd/element-console-style/src/

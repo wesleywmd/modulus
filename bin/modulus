@@ -1,13 +1,14 @@
 #!/usr/bin/env php
 <?php
-/**
- * @author Wesley Guthrie <therealwesleywmd@gmail.com>
- */
+// set_time_limit(0);
 
-use Modulus\Application;
+$ds = DIRECTORY_SEPARATOR;
+$app_root = dirname(__DIR__);
 
-require __DIR__.'/../../../autoload.php';
+if( file_exists($app_root. $ds . "vendor" . $ds . "autoload.php") ) {
+    require $app_root. $ds . "vendor" . $ds . "autoload.php";
+} else {
+    die("You must run \"composer install\" before trying to launch framework.\n");
+}
 
-$application = new Application();
-
-$application->run();
+( new \Modulus\Bootstrap($app_root) )->launch();

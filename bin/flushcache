@@ -1,0 +1,12 @@
+#!/usr/bin/env php
+<?php
+$ds = DIRECTORY_SEPARATOR;
+$app_root = dirname(__DIR__);
+
+if( file_exists($app_root. $ds . "vendor" . $ds . "autoload.php") ) {
+    require $app_root. $ds . "vendor" . $ds . "autoload.php";
+} else {
+    die("You must run \"composer install\" before trying to launch framework.\n");
+}
+
+( new \Modulus\Bootstrap($app_root) )->flushcache();
