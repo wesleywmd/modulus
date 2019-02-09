@@ -6,7 +6,7 @@ Console Application Boilerplate Project. Can be used to build custom console app
 ## How do I create my own Modulus project?
 It is as simple running:
 
-    composer create-project wesleywmd/Modulus myproject
+    composer create-project wesleywmd/modulus myproject
     
 Where `myproject` is the directory you want to create your Modulus project.
 
